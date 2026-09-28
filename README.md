@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-Oktyabr — O'qituvchi va Murabbiylar Kuni</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f3ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#1e1b4b',
+                            gold: '#fbbf24',
+                            amber: '#f59e0b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animated Gift Box CSS */
+        .gift-container {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .gift-box {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            transform-style: preserve-3d;
+            animation: bounce 2s infinite ease-in-out;
+            transition: transform 0.5s ease;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        .gift-body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-radius: 16px;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.4);
+        }
+
+        .gift-ribbon-v {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 32px;
+            height: 100%;
+            background: linear-gradient(to right, #fbbf24, #f59e0b);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+
+        .gift-ribbon-h {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 32px;
+            background: linear-gradient(to bottom, #fbbf24, #f59e0b);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+
+        .gift-lid {
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            width: 180px;
+            height: 45px;
+            background: linear-gradient(135deg, #f87171, #ef4444);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 10;
+        }
+
+        .gift-bow {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 40px;
+            z-index: 11;
+        }
+
+        .gift-bow::before, .gift-bow::after {
+            content: '';
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            border: 6px solid #fbbf24;
+            border-radius: 50% 50% 0 50%;
+            transform: rotate(45deg);
+        }
+
+        .gift-bow::after {
+            right: 0;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+        }
+
+        /* Gift opened state */
+        .gift-box.opened {
+            animation: none;
+        }
+
+        .gift-box.opened .gift-lid {
+            transform: translateY(-120px) rotate(-25deg) scale(0.9);
+            opacity: 0;
+        }
+
+        /* Sparkle Particle Animations */
+        .sparkle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Letter Modal Card Styling */
+        .letter-card {
+            transform: scale(0.3) translateY(100px);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+        }
+
+        .letter-card.visible {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Shimmer Glow */
+        .glow-effect {
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+    <!-- INTRO OVERLAY (SCREEN 1) -->
+    <div id="intro-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950 px-4 transition-opacity duration-1000">
+        <!-- Sparkle particles canvas background -->
+        <canvas id="sparkleCanvas" class="sparkle-canvas"></canvas>
+
+        <div class="text-center mb-8 animate-pulse z-10">
+            <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-amber-400 bg-amber-400/10 border border-amber-400/20 mb-3">
+                <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Sizga maxsus sovg'a bor
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Ustozlar bayramiga hush kelibsiz!
+            </h2>
+            <p class="text-slate-400 text-sm mt-1">Ochish uchun sovg'a qutisini bosing</p>
+        </div>
+
+        <!-- 3D Interactive Gift Box -->
+        <div class="gift-container z-20 my-6" id="giftBoxContainer" onclick="openGift()">
+            <div class="gift-box" id="giftBox">
+                <div class="gift-lid">
+                    <div class="gift-ribbon-v" style="width: 28px;"></div>
+                    <div class="gift-bow"></div>
+                </div>
+                <div class="gift-body">
+                    <div class="gift-ribbon-v"></div>
+                    <div class="gift-ribbon-h"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden Letter Modal (Reveals on Gift Click) -->
+        <div id="letterCard" class="letter-card max-w-lg w-full bg-gradient-to-b from-slate-900 to-slate-800 p-6 sm:p-8 rounded-2xl border border-amber-500/30 shadow-2xl z-30 text-center relative mt-4">
+            <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-amber-500 text-slate-950 p-3 rounded-full shadow-lg">
+                <i class="fa-solid fa-envelope-open-text text-2xl"></i>
+            </div>
+            
+            <div class="mt-4 space-y-4">
+                <h3 class="text-amber-400 font-serif text-xl sm:text-2xl font-bold italic tracking-wide">
+                    Bayram Tabrigi
+                </h3>
+                <div class="h-0.5 w-16 bg-amber-500/50 mx-auto rounded-full"></div>
+                
+                <p id="typedMessage" class="text-slate-100 font-medium text-lg sm:text-xl leading-relaxed py-3 font-serif italic min-h-[80px]">
+                    <!-- Typed dynamically or displayed -->
+                    "Salom hamma ustozlaru murabbilar sizlarni shu 1 oktyabr ustozlar kuni bilan tabriklarmiz"
+                </p>
+
+                <div id="nextBtnContainer" class="pt-4 transition-all duration-500 opacity-0 transform translate-y-4">
+                    <button onclick="goToMainPage()" class="group relative inline-flex items-center justify-center px-8 py-3.5 text-base font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl shadow-lg hover:from-amber-300 hover:to-amber-400 transition-all duration-300 hover:scale-105 active:scale-95">
+                        <span>Keyingi</span>
+                        <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN WEBSITE CONTENT (SCREEN 2) -->
+    <div id="main-content" class="opacity-0 transition-opacity duration-1000 min-h-screen flex flex-col justify-between">
+        
+        <!-- Header / Navigation -->
+        <header class="sticky top-0 z-40 glass border-b border-slate-800/80">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-amber-400 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                        1
+                    </div>
+                    <div>
+                        <span class="text-lg font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">1-Oktyabr</span>
+                        <span class="block text-xs text-amber-400 font-medium tracking-wider">USTOZLAR KUNI</span>
+                    </div>
+                </div>
+
+                <!-- Sound and Action Controls -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="toggleAudio()" id="audioToggleBtn" title="Ovozni yoqish/o'chirish" class="p-2.5 rounded-xl glass hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                        <i id="audioIcon" class="fa-solid fa-volume-xmark text-lg"></i>
+                    </button>
+                    <button onclick="triggerConfetti()" class="hidden sm:inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-brand-600/20 border border-brand-500/30 text-brand-300 hover:bg-brand-600/30 transition-all text-sm font-medium">
+                        <i class="fa-solid fa-sparkles text-amber-400"></i>
+                        <span>Otashbozi</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <main class="flex-grow">
+            <section class="relative pt-16 pb-24 overflow-hidden">
+                <!-- Background decorative glowing orbs -->
+                <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-600/15 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute top-1/3 right-10 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                    
+                    <div class="inline-flex items-center space-x-2 px-5 py-2 rounded-full glass border border-amber-500/30 mb-8 animate-bounce">
+                        <i class="fa-solid fa-graduation-cap text-amber-400 text-sm"></i>
+                        <span class="text-xs font-semibold text-slate-200 tracking-wider uppercase">Fidoyi ustozlarimizga ehtirom</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight max-w-4xl mx-auto">
+                        1-Oktyabr — <span class="bg-gradient-to-r from-amber-400 via-amber-200 to-brand-500 bg-clip-text text-transparent">O'qituvchi va murabbiylar</span> kuni!
+                    </h1>
+
+                    <p class="mt-6 text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+                        Kelajak bunyodkorlari, bilim ma'rifat ulashuvchi aziz va mo'tabar ustozlarimizga cheksiz minnatdorchilik bildiramiz.
+                    </p>
+
+                    <!-- Expressive Hero Banner Image / Glass Card -->
+                    <div class="mt-12 max-w-4xl mx-auto glass p-8 sm:p-12 rounded-3xl border border-slate-700/50 shadow-2xl glow-effect text-left relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+                            <i class="fa-solid fa-award text-[220px] text-amber-400"></i>
+                        </div>
+                        <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                            <div class="md:col-span-2 space-y-4">
+                                <span class="px-3 py-1 bg-amber-500/20 text-amber-300 rounded-md text-xs font-bold uppercase tracking-widest border border-amber-500/30">
+                                    Sharafli Kasb
+                                </span>
+                                <h3 class="text-2xl sm:text-3xl font-bold font-serif text-white">"Ustoz — ikkinchi validangizdir"</h3>
+                                <p class="text-slate-300 text-sm leading-relaxed font-light">
+                                    Har bir muvaffaqiyatimiz va erishgan marralarimiz ortida ustozlarimizning tunlarni kunlarga ulagan fidokorona mehnati yotadi.
+                                </p>
+                            </div>
+                            <div class="flex justify-center md:justify-end">
+                                <button onclick="triggerConfetti()" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold hover:scale-105 transition duration-300 shadow-xl flex items-center gap-2">
+                                    <i class="fa-solid fa-gift"></i>
+                                    <span>Guldasta Hadiya Qilish</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Wish Wall Section -->
+            <section class="py-16 bg-slate-900/50 border-y border-slate-800/80">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-12">
+                        <h2 class="text-3xl font-bold text-white tracking-tight">
+                            <i class="fa-solid fa-heart text-red-500 mr-2"></i> Minnatdorchilik Devori
+                        </h2>
+                        <p class="text-slate-400 text-sm mt-2">
+                            O'z ustozingiz uchun samimiy tilak yoki tabrikingizni qoldiring!
+                        </p>
+                    </div>
+
+                    <!-- Input Form for Wish -->
+                    <div class="max-w-xl mx-auto glass p-6 rounded-2xl border border-slate-700/60 shadow-xl mb-12">
+                        <form id="wishForm" onsubmit="addWish(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Ismingiz yoki Taxallusingiz</label>
+                                <input type="text" id="authorInput" required placeholder="Masalan: Sardor (Sobiq o'quvchi)" 
+                                    class="w-full px-4 py-2.5 rounded-xl bg-slate-950/70 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Tabrik / Tilagingiz</label>
+                                <textarea id="messageInput" required rows="3" placeholder="Aziz ustozim, menga bergan ilmingiz uchun..." 
+                                    class="w-full px-4 py-2.5 rounded-xl bg-slate-950/70 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500 transition"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl shadow-lg transition duration-200 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>Tabriknomani joylash</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Wishes Grid Display -->
+                    <div id="wishesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Dynamic wishes injected here via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inspirational Quotes Section -->
+            <section class="py-16">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl font-bold text-white">
+                            <i class="fa-solid fa-book-open-reader text-amber-400 mr-2"></i> Ustozlar Haqida Hikmatlar
+                        </h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="glass p-6 rounded-2xl border border-slate-800 relative hover:border-brand-500/40 transition">
+                            <i class="fa-solid fa-quote-left text-3xl text-brand-500/30 absolute top-4 left-4"></i>
+                            <p class="text-slate-200 font-serif italic text-lg leading-relaxed relative z-10 pt-4">
+                                "O'qituvchi va murabbiylar — jamiyatning eng oliy va mas'uliyatli ustuni, kelajagimiz poydevoridir."
+                            </p>
+                            <div class="mt-4 text-right">
+                                <span class="text-xs font-semibold text-amber-400 uppercase tracking-wider">— Alisher Navoiy o'gitlaridan</span>
+                            </div>
+                        </div>
+
+                        <div class="glass p-6 rounded-2xl border border-slate-800 relative hover:border-brand-500/40 transition">
+                            <i class="fa-solid fa-quote-left text-3xl text-amber-500/30 absolute top-4 left-4"></i>
+                            <p class="text-slate-200 font-serif italic text-lg leading-relaxed relative z-10 pt-4">
+                                "Haq yo‘lida kim sana bir harf o‘qitmish ranj ila, Aylasa bo‘lmas adosin yuz ganj ila."
+                            </p>
+                            <div class="mt-4 text-right">
+                                <span class="text-xs font-semibold text-amber-400 uppercase tracking-wider">— Mir Alisher Navoiy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="glass border-t border-slate-800/80 py-8 text-center text-slate-400 text-sm">
+            <div class="max-w-7xl mx-auto px-4">
+                <p>© 2026 Bayramona Sayt | Barcha ustoz va murabbiylarga minnatdorchilik bilan.</p>
+                <p class="text-xs text-slate-500 mt-1">1-Oktyabr - Ustozlar kuni munosabati bilan maxsus tayyorlandi.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // --- State Management ---
+        let giftOpened = false;
+        let audioContext = null;
+        let audioEnabled = false;
+
+        // --- Sparkles Particle System on Canvas ---
+        const canvas = document.getElementById('sparkleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = (Math.random() - 0.5) * 1.5;
+                this.speedY = (Math.random() - 0.5) * 1.5;
+                this.alpha = Math.random();
+                this.fadeSpeed = Math.random() * 0.02 + 0.005;
+                this.color = Math.random() > 0.5 ? '#fbbf24' : '#818cf8';
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= this.fadeSpeed;
+
+                if (this.alpha <= 0 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.alpha);
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < 60; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // --- Web Audio Synth Sound FX ---
+        function playChimeSound() {
+            try {
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+
+                const now = audioContext.currentTime;
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 notes
+                
+                notes.forEach((freq, idx) => {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    
+                    gain.gain.setValueAtTime(0, now + idx * 0.1);
+                    gain.gain.linearRampToValueAtTime(0.2, now + idx * 0.1 + 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.8);
+                    
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    
+                    osc.start(now + idx * 0.1);
+                    osc.stop(now + idx * 0.1 + 0.9);
+                });
+            } catch(e) {
+                console.log('Audio playback standard bypass', e);
+            }
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            const icon = document.getElementById('audioIcon');
+            if (audioEnabled) {
+                icon.className = 'fa-solid fa-volume-high text-amber-400';
+                playChimeSound();
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark text-slate-300';
+            }
+        }
+
+        // --- Gift Box Interaction ---
+        function openGift() {
+            if (giftOpened) return;
+            giftOpened = true;
+
+            const giftBox = document.getElementById('giftBox');
+            const letterCard = document.getElementById('letterCard');
+            const nextBtnContainer = document.getElementById('nextBtnContainer');
+
+            // Sound
+            playChimeSound();
+
+            // Trigger Confetti
+            confetti({
+                particleCount: 120,
+                spread: 80,
+                origin: { y: 0.6 }
+            });
+
+            // Animate gift lid
+            giftBox.classList.add('opened');
+
+            // Show Letter Card smoothly
+            setTimeout(() => {
+                letterCard.classList.add('visible');
+                
+                // Show "Keyingi" button after letter appears
+                setTimeout(() => {
+                    nextBtnContainer.classList.remove('opacity-0', 'translate-y-4');
+                }, 600);
+            }, 500);
+        }
+
+        // --- Navigation from Intro to Main Page ---
+        function goToMainPage() {
+            const introScreen = document.getElementById('intro-screen');
+            const mainContent = document.getElementById('main-content');
+
+            // Play Sound & Confetti
+            playChimeSound();
+            triggerConfetti();
+
+            // Fade out intro, fade in main content
+            introScreen.style.opacity = '0';
+            setTimeout(() => {
+                introScreen.style.display = 'none';
+                mainContent.classList.remove('opacity-0');
+                mainContent.classList.add('opacity-100');
+                window.scrollTo(0, 0);
+            }, 1000);
+        }
+
+        function triggerConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 100,
+                origin: { y: 0.5 }
+            });
+        }
+
+        // --- Minnatdorchilik Devori (Wishes System) ---
+        const initialWishes = [
+            {
+                author: "Anvarjon (Toshkent)",
+                text: "Barcha mehribon ustozlarimizga sihat-salomatlik va zafarlar tilayman! Ilmingiz ziyoda bo'lsin."
+            },
+            {
+                author: "Malika R.",
+                text: "Siz bergan saboqlar va to'g'ri yo'l-yo'riqlar sabab bugun o'z o'rnimni topdim. Rahmat sizga!"
+            },
+            {
+                author: "10-'A' Sinf bitiruvchilari",
+                text: "1-Oktyabr bayramingiz muborak bo'lsin aziz ustozlarim! Har doim yuzingizdan tabassum arolmasin."
+            }
+        ];
+
+        function renderWishes() {
+            const grid = document.getElementById('wishesGrid');
+            const wishes = JSON.parse(localStorage.getItem('ustoz_wishes')) || initialWishes;
+
+            grid.innerHTML = wishes.map((wish) => `
+                <div class="glass p-5 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-amber-500/30 transition shadow-lg">
+                    <p class="text-slate-200 text-sm sm:text-base italic font-serif leading-relaxed">"${wish.text}"</p>
+                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                        <span class="font-semibold text-amber-400"><i class="fa-solid fa-user-pen mr-1.5"></i>${wish.author}</span>
+                        <span class="text-slate-500"><i class="fa-solid fa-heart text-red-500/80 mr-1"></i>Ehtirom bilan</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addWish(event) {
+            event.preventDefault();
+            const authorInput = document.getElementById('authorInput');
+            const messageInput = document.getElementById('messageInput');
+
+            const newWish = {
+                author: authorInput.value.trim(),
+                text: messageInput.value.trim()
+            };
+
+            const wishes = JSON.parse(localStorage.getItem('ustoz_wishes')) || initialWishes;
+            wishes.unshift(newWish);
+            localStorage.setItem('ustoz_wishes', JSON.stringify(wishes));
+
+            renderWishes();
+            authorInput.value = '';
+            messageInput.value = '';
+
+            triggerConfetti();
+        }
+
+        // Initialize state on load
+        window.onload = function() {
+            renderWishes();
+        }
+    </script>
+</body>
+</html>
