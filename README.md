@@ -1,660 +1,259 @@
 <!DOCTYPE html>
-<html lang="uz" class="dark">
+<html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1-Oktyabr — O'qituvchi va Murabbiylar Kuni</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0f3ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                            900: '#1e1b4b',
-                            gold: '#fbbf24',
-                            amber: '#f59e0b'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'Georgia', 'serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tug‘ilgan kuningiz muborak, Dadajon! 🎂</title>
+<style>
+:root{--gold:#ffd86b;--gold2:#ffb52e;--pink:#ff5fa2;--violet:#7b4dff;--bg1:#1a0b3d;--bg2:#4a1670;--bg3:#8a1f6b;--ink:#fff}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;color:var(--ink);overflow-x:hidden;
+ background:radial-gradient(circle at 20% 10%,var(--bg3),transparent 50%),radial-gradient(circle at 85% 80%,#2b3cc4,transparent 55%),linear-gradient(160deg,var(--bg1),var(--bg2));
+ background-attachment:fixed;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+.screen{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;transition:opacity .8s,transform .8s}
+.screen.hide{opacity:0;transform:scale(1.05);pointer-events:none}
+#intro{justify-content:center;text-align:center;padding:20px}
+#main{padding:30px 16px 90px;opacity:0;pointer-events:none}
+#main.show{opacity:1;pointer-events:auto}
+.hint{margin-top:2.2em;font-size:1.05rem;color:var(--gold);letter-spacing:.05em;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.4;transform:scale(.96)}}
+.glow-bg{position:absolute;width:60vmin;height:60vmin;border-radius:50%;background:radial-gradient(circle,rgba(255,216,107,.45),transparent 65%);animation:breathe 4s ease-in-out infinite;z-index:0}
+@keyframes breathe{50%{transform:scale(1.25);opacity:.6}}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-            overflow-x: hidden;
-        }
+/* GIFT */
+.gift{position:relative;width:10em;height:10.5em;cursor:pointer;z-index:2;font-size:var(--fs,18px);animation:bounce 2s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes bounce{0%,100%{transform:translateY(0) rotate(0)}15%{transform:translateY(-.8em) rotate(-3deg)}30%{transform:translateY(0) rotate(3deg)}45%{transform:translateY(-.4em) rotate(-2deg)}60%{transform:translateY(0) rotate(0)}}
+.gift.opened,.gift.opening{animation:none}
+.gift .base,.gift .lid{position:absolute;border-radius:.4em;background:linear-gradient(135deg,var(--pink),#c22a86);box-shadow:0 0 1.5em rgba(255,95,162,.55),inset 0 -.5em 0 rgba(0,0,0,.15)}
+.gift .base{left:.6em;bottom:0;width:8.8em;height:6.6em}
+.gift .lid{left:0;top:1.9em;width:10em;height:2.2em;transform-origin:0 100%;transition:transform .9s cubic-bezier(.3,1.6,.5,1);z-index:3;background:linear-gradient(135deg,#ff7ab5,#d4339a)}
+.gift .rib{position:absolute;left:50%;width:1.7em;margin-left:-.85em;background:linear-gradient(90deg,var(--gold2),var(--gold),var(--gold2))}
+.gift .base .rib{top:0;bottom:0}
+.gift .lid .rib{top:0;bottom:0}
+.gift .bow{position:absolute;left:50%;top:-1.2em;width:1px;height:1px}
+.gift .bow i{position:absolute;width:2.2em;height:1.7em;border:.5em solid var(--gold);border-radius:50% 50% 50% 0;top:-.6em}
+.gift .bow i:first-child{left:-2.1em;transform:rotate(-20deg)}
+.gift .bow i:last-child{left:-.1em;transform:scaleX(-1) rotate(-20deg)}
+.gift .bow b{position:absolute;left:-.5em;top:-.1em;width:1em;height:1em;border-radius:50%;background:var(--gold2)}
+.gift.opened .lid,.gift.opening .lid{transform:translate(-1.5em,-3.5em) rotate(-40deg)}
+.gift .inner{position:absolute;left:1em;top:3.6em;width:8em;height:3em;background:radial-gradient(ellipse,#fff7c2,var(--gold) 50%,transparent 75%);opacity:0;filter:blur(.3em);transition:opacity .5s}
+.gift.opened .inner,.gift.opening .inner{opacity:1}
+.gift:hover{filter:brightness(1.12)}
+.gift:active{transform:scale(.95)}
+.g2 .base,.g2 .lid{background:linear-gradient(135deg,#5b8bff,#3a3fd6);box-shadow:0 0 1.5em rgba(91,139,255,.6),inset 0 -.5em 0 rgba(0,0,0,.15)}
+.g2 .lid{background:linear-gradient(135deg,#7aa2ff,#4d52e6)}
+.g3 .base,.g3 .lid{background:linear-gradient(135deg,#27d6a0,#0f9a8a);box-shadow:0 0 1.5em rgba(39,214,160,.55),inset 0 -.5em 0 rgba(0,0,0,.15)}
+.g3 .lid{background:linear-gradient(135deg,#4ee8b7,#14ad98)}
 
-        /* Glassmorphism utility */
-        .glass {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+/* MESSAGES */
+.greet{position:relative;z-index:2;margin-top:1.2em;max-width:620px;font-size:clamp(1.5rem,5.5vw,2.4rem);font-weight:800;line-height:1.3;opacity:0;transform:translateY(30px) scale(.9);
+ background:linear-gradient(90deg,#fff,var(--gold),#fff);background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 12px rgba(255,216,107,.5))}
+.greet.in{animation:rise 1s forwards,shine 3s linear infinite}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes shine{to{background-position:200%}}
+.btn{margin-top:1.6em;padding:.9em 2.2em;border:0;border-radius:999px;font-size:1.1rem;font-weight:700;color:#3a1a00;cursor:pointer;
+ background:linear-gradient(135deg,var(--gold),var(--gold2));box-shadow:0 0 25px rgba(255,200,70,.6);transition:transform .25s,box-shadow .25s;opacity:0;pointer-events:none;position:relative;z-index:2}
+.btn.in{animation:rise .8s .6s forwards;pointer-events:auto}
+.btn:hover{transform:scale(1.08) translateY(-2px);box-shadow:0 0 40px rgba(255,200,70,.95)}
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Animated Gift Box CSS */
-        .gift-container {
-            perspective: 1000px;
-            cursor: pointer;
-        }
-
-        .gift-box {
-            position: relative;
-            width: 160px;
-            height: 160px;
-            transform-style: preserve-3d;
-            animation: bounce 2s infinite ease-in-out;
-            transition: transform 0.5s ease;
-        }
-
-        .gift-box:hover {
-            transform: scale(1.05);
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(2deg); }
-        }
-
-        .gift-body {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            border-radius: 16px;
-            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.4);
-        }
-
-        .gift-ribbon-v {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            transform: translateX(-50%);
-            width: 32px;
-            height: 100%;
-            background: linear-gradient(to right, #fbbf24, #f59e0b);
-            box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
-        }
-
-        .gift-ribbon-h {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            width: 100%;
-            height: 32px;
-            background: linear-gradient(to bottom, #fbbf24, #f59e0b);
-            box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
-        }
-
-        .gift-lid {
-            position: absolute;
-            top: -20px;
-            left: -10px;
-            width: 180px;
-            height: 45px;
-            background: linear-gradient(135deg, #f87171, #ef4444);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            z-index: 10;
-        }
-
-        .gift-bow {
-            position: absolute;
-            top: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 70px;
-            height: 40px;
-            z-index: 11;
-        }
-
-        .gift-bow::before, .gift-bow::after {
-            content: '';
-            position: absolute;
-            width: 35px;
-            height: 35px;
-            border: 6px solid #fbbf24;
-            border-radius: 50% 50% 0 50%;
-            transform: rotate(45deg);
-        }
-
-        .gift-bow::after {
-            right: 0;
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(-45deg);
-        }
-
-        /* Gift opened state */
-        .gift-box.opened {
-            animation: none;
-        }
-
-        .gift-box.opened .gift-lid {
-            transform: translateY(-120px) rotate(-25deg) scale(0.9);
-            opacity: 0;
-        }
-
-        /* Sparkle Particle Animations */
-        .sparkle-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        /* Letter Modal Card Styling */
-        .letter-card {
-            transform: scale(0.3) translateY(100px);
-            opacity: 0;
-            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            pointer-events: none;
-        }
-
-        .letter-card.visible {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Shimmer Glow */
-        .glow-effect {
-            box-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
-        }
-    </style>
+/* MAIN */
+h1{font-size:clamp(1.9rem,7vw,3.6rem);text-align:center;line-height:1.2;font-weight:900;max-width:900px;position:relative;z-index:2;
+ background:linear-gradient(90deg,#fff3b8,var(--gold2),#fff3b8,var(--pink));background-size:300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite;filter:drop-shadow(0 0 16px rgba(255,190,60,.55))}
+.sub{margin-top:.6em;color:var(--gold);letter-spacing:.2em;font-size:.85rem;text-transform:uppercase;z-index:2;text-align:center}
+.cakewrap{position:relative;z-index:2;margin:34px 0 8px;display:flex;flex-direction:column;align-items:center;cursor:pointer}
+.candles{display:flex;gap:14px;margin-bottom:-2px}
+.candle{width:9px;height:34px;background:repeating-linear-gradient(45deg,#fff,#fff 5px,#ff8ab8 5px,#ff8ab8 10px);border-radius:3px;position:relative}
+.flame{position:absolute;left:50%;top:-20px;width:12px;height:20px;margin-left:-6px;border-radius:50% 50% 50% 50%/65% 65% 35% 35%;
+ background:radial-gradient(circle at 50% 70%,#fff,var(--gold) 50%,#ff7a18);box-shadow:0 0 18px 6px rgba(255,190,60,.7);animation:flick .3s infinite alternate;transition:opacity .5s}
+@keyframes flick{from{transform:scale(1,1) rotate(-3deg)}to{transform:scale(.88,1.12) rotate(3deg)}}
+.out .flame{opacity:0}
+.tier{border-radius:14px 14px 6px 6px;position:relative}
+.t1{width:120px;height:50px;background:linear-gradient(#ff9ec8,#e8478f)}
+.t2{width:170px;height:58px;background:linear-gradient(#ffe0a3,#f5a742)}
+.t3{width:220px;height:66px;background:linear-gradient(#b99bff,#7b4dff)}
+.tier:before{content:"";position:absolute;left:0;right:0;top:0;height:14px;border-radius:14px 14px 40% 40%;background:#fff;opacity:.92}
+.plate{width:260px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 25px var(--gold2)}
+.wish{margin-top:12px;color:#ffd0e4;font-size:1rem;text-shadow:0 0 12px var(--pink)}
+.card{position:relative;z-index:2;max-width:640px;width:100%;margin:26px auto 0;padding:30px 26px;border-radius:24px;
+ background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.05));backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+ border:1px solid rgba(255,216,107,.55);box-shadow:0 0 40px rgba(255,190,60,.25),0 20px 50px rgba(0,0,0,.35);transition:transform .4s}
+.card:hover{transform:translateY(-6px) rotate(-.5deg)}
+.card h2{color:var(--gold);font-size:1.5rem;margin-bottom:.6em}
+.card p{line-height:1.75;font-size:1.05rem;margin-bottom:.8em;color:#fff4fb}
+.card .sign{text-align:right;color:var(--gold);font-weight:700;font-size:1.15rem}
+.gifts-title{position:relative;z-index:2;margin:40px 0 4px;font-size:1.3rem;color:var(--gold);text-align:center}
+.row{position:relative;z-index:2;display:flex;justify-content:center;gap:clamp(4px,3vw,34px);width:100%;max-width:700px;margin-top:70px}
+.slot{flex:1;display:flex;justify-content:center}
+.row .gift{--fs:min(13px,2.8vw);animation-delay:var(--d)}
+.reveal{position:relative;z-index:3;min-height:150px;width:min(92%,440px);margin-top:26px;display:flex;align-items:center;justify-content:center;text-align:center;
+ padding:20px;border-radius:22px;font-size:1.35rem;font-weight:700;line-height:1.5;color:#fff;opacity:0;transform:scale(.3);
+ background:linear-gradient(135deg,rgba(255,216,107,.3),rgba(255,95,162,.3));border:2px solid var(--gold);box-shadow:0 0 45px rgba(255,200,70,.65)}
+.reveal.pop{animation:pop .9s cubic-bezier(.2,1.5,.4,1) forwards}
+.reveal small{display:block;color:var(--gold);font-size:1rem;margin-bottom:.3em}
+@keyframes pop{0%{opacity:0;transform:scale(.2) translateY(-90px)}100%{opacity:1;transform:none}}
+.balloon{position:fixed;bottom:-140px;width:56px;height:70px;border-radius:50% 50% 48% 48%;z-index:1;opacity:.85;animation:float linear infinite}
+.balloon:after{content:"";position:absolute;left:50%;top:100%;width:1px;height:60px;background:rgba(255,255,255,.5)}
+@keyframes float{to{transform:translateY(-125vh) translateX(40px) rotate(8deg)}}
+#music{position:fixed;right:14px;top:calc(14px + env(safe-area-inset-top,0px));z-index:60;width:48px;height:48px;border-radius:50%;border:1px solid var(--gold);
+ background:rgba(30,10,60,.7);color:var(--gold);font-size:1.3rem;cursor:pointer;box-shadow:0 0 18px rgba(255,200,70,.5);transition:transform .25s}
+#music:hover{transform:scale(1.12) rotate(10deg)}
+#music.on{animation:pulse 1.5s infinite}
+</style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+<body>
+<canvas id="fx"></canvas>
+<button id="music" title="Musiqa">🎵</button>
 
-    <!-- INTRO OVERLAY (SCREEN 1) -->
-    <div id="intro-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950 px-4 transition-opacity duration-1000">
-        <!-- Sparkle particles canvas background -->
-        <canvas id="sparkleCanvas" class="sparkle-canvas"></canvas>
+<!-- 1. KIRISH -->
+<section id="intro" class="screen">
+  <div class="glow-bg"></div>
+  <div class="gift" id="bigGift" style="--fs:clamp(14px,4.5vw,24px)">
+    <div class="base"><span class="rib"></span></div>
+    <div class="inner"></div>
+    <div class="lid"><span class="rib"></span><span class="bow"><i></i><i></i><b></b></span></div>
+  </div>
+  <p class="hint" id="hint">✨ Sovg‘ani bosing ✨</p>
+  <div class="greet" id="greet">Salom dadajon! Sizni tug‘ilgan kuningiz bilan tabriklayman! 🎉🎂</div>
+  <button class="btn" id="next">Keyingi →</button>
+</section>
 
-        <div class="text-center mb-8 animate-pulse z-10">
-            <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-amber-400 bg-amber-400/10 border border-amber-400/20 mb-3">
-                <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Sizga maxsus sovg'a bor
-            </span>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                Ustozlar bayramiga hush kelibsiz!
-            </h2>
-            <p class="text-slate-400 text-sm mt-1">Ochish uchun sovg'a qutisini bosing</p>
-        </div>
+<!-- 2. ASOSIY -->
+<section id="main" class="screen">
+  <h1>🎉 Tug‘ilgan kuningiz muborak, Dadajon! 🎂</h1>
+  <div class="sub">eng aziz insonimga</div>
 
-        <!-- 3D Interactive Gift Box -->
-        <div class="gift-container z-20 my-6" id="giftBoxContainer" onclick="openGift()">
-            <div class="gift-box" id="giftBox">
-                <div class="gift-lid">
-                    <div class="gift-ribbon-v" style="width: 28px;"></div>
-                    <div class="gift-bow"></div>
-                </div>
-                <div class="gift-body">
-                    <div class="gift-ribbon-v"></div>
-                    <div class="gift-ribbon-h"></div>
-                </div>
-            </div>
-        </div>
+  <div class="cakewrap" id="cake">
+    <div class="candles"><div class="candle"><span class="flame"></span></div><div class="candle"><span class="flame" style="animation-delay:.1s"></span></div><div class="candle"><span class="flame" style="animation-delay:.2s"></span></div></div>
+    <div class="tier t1"></div><div class="tier t2"></div><div class="tier t3"></div><div class="plate"></div>
+    <div class="wish">Tilak tilang, Dadajon ❤️ <span style="opacity:.6">(tortni bosing)</span></div>
+  </div>
 
-        <!-- Hidden Letter Modal (Reveals on Gift Click) -->
-        <div id="letterCard" class="letter-card max-w-lg w-full bg-gradient-to-b from-slate-900 to-slate-800 p-6 sm:p-8 rounded-2xl border border-amber-500/30 shadow-2xl z-30 text-center relative mt-4">
-            <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-amber-500 text-slate-950 p-3 rounded-full shadow-lg">
-                <i class="fa-solid fa-envelope-open-text text-2xl"></i>
-            </div>
-            
-            <div class="mt-4 space-y-4">
-                <h3 class="text-amber-400 font-serif text-xl sm:text-2xl font-bold italic tracking-wide">
-                    Bayram Tabrigi
-                </h3>
-                <div class="h-0.5 w-16 bg-amber-500/50 mx-auto rounded-full"></div>
-                
-                <p id="typedMessage" class="text-slate-100 font-medium text-lg sm:text-xl leading-relaxed py-3 font-serif italic min-h-[80px]">
-                    <!-- Typed dynamically or displayed -->
-                    "Salom hamma ustozlaru murabbilar sizlarni shu 1 oktyabr ustozlar kuni bilan tabriklarmiz"
-                </p>
+  <article class="card">
+    <h2>Aziz Dadajonim, 💌</h2>
+    <p>Bugun dunyodagi eng mehribon, eng kuchli va eng g‘amxo‘r insonning tug‘ilgan kuni. Siz bizning tayanchimiz, ishonchimiz va g‘ururimizsiz.</p>
+    <p>Sizga mustahkam sog‘liq, oilangizga xotirjamlik, uyingizga baraka, dilingizga cheksiz quvonch tilayman. Har bir kuningiz kulgu va mehr bilan to‘lsin, orzularingiz birma-bir ushalsin.</p>
+    <p>Sizni juda yaxshi ko‘raman, dada! Doimo bizga omon bo‘ling. 🎂❤️</p>
+    <div class="sign">Farzandingiz ❤️</div>
+  </article>
 
-                <div id="nextBtnContainer" class="pt-4 transition-all duration-500 opacity-0 transform translate-y-4">
-                    <button onclick="goToMainPage()" class="group relative inline-flex items-center justify-center px-8 py-3.5 text-base font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl shadow-lg hover:from-amber-300 hover:to-amber-400 transition-all duration-300 hover:scale-105 active:scale-95">
-                        <span>Keyingi</span>
-                        <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+  <h3 class="gifts-title">🎁 Sovg‘alarni oching 🎁</h3>
+  <div class="row" id="row"></div>
+  <div class="reveal" id="reveal"></div>
+</section>
 
-    <!-- MAIN WEBSITE CONTENT (SCREEN 2) -->
-    <div id="main-content" class="opacity-0 transition-opacity duration-1000 min-h-screen flex flex-col justify-between">
-        
-        <!-- Header / Navigation -->
-        <header class="sticky top-0 z-40 glass border-b border-slate-800/80">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-amber-400 flex items-center justify-center text-white font-bold text-xl shadow-md">
-                        1
-                    </div>
-                    <div>
-                        <span class="text-lg font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">1-Oktyabr</span>
-                        <span class="block text-xs text-amber-400 font-medium tracking-wider">USTOZLAR KUNI</span>
-                    </div>
-                </div>
+<script>
+/* ---------- Zarrachalar (konfetti, yulduz, yurak) ---------- */
+const cv=document.getElementById('fx'),cx=cv.getContext('2d');let W,H,P=[];
+const COL=['#ffd86b','#ff5fa2','#7b4dff','#4ee8b7','#5b8bff','#fff','#ffb52e'];
+function size(){const d=devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0)}
+addEventListener('resize',size);size();
+const rnd=(a,b)=>a+Math.random()*(b-a);
+function add(x,y,type,burst){
+  const a=rnd(0,6.283),s=burst?rnd(3,11):rnd(.3,1.2);
+  P.push({x,y,vx:burst?Math.cos(a)*s:rnd(-.4,.4),vy:burst?Math.sin(a)*s-3:s,t:type,c:COL[(Math.random()*COL.length)|0],
+   r:rnd(5,13),rot:rnd(0,6),vr:rnd(-.2,.2),life:burst?rnd(70,140):9999,g:burst?.18:.01,ph:rnd(0,6)});
+}
+function burst(x,y,n=70){for(let i=0;i<n;i++)add(x,y,['c','c','s','h'][(Math.random()*4)|0],true)}
+function ambient(){
+  if(P.length<110&&Math.random()<.35)add(rnd(0,W),-10,['c','s','h','s'][(Math.random()*4)|0],false);
+  if(Math.random()<.15)twinkle();
+}
+function twinkle(){P.push({x:rnd(0,W),y:rnd(0,H),vx:0,vy:0,t:'t',c:'#fff',r:rnd(2,5),rot:0,vr:0,life:60,g:0,ph:0,max:60})}
+function loop(){
+  cx.clearRect(0,0,W,H);ambient();
+  for(let i=P.length-1;i>=0;i--){
+    const p=P[i];p.x+=p.vx+Math.sin(p.ph+=.03)*.4;p.y+=p.vy;p.vy+=p.g;if(p.g>.1)p.vx*=.985;p.rot+=p.vr;p.life--;
+    if(p.life<=0||p.y>H+20){P.splice(i,1);continue}
+    cx.save();cx.translate(p.x,p.y);cx.rotate(p.rot);cx.fillStyle=p.c;
+    cx.globalAlpha=p.t==='t'?Math.sin(p.life/p.max*Math.PI):Math.min(1,p.life/30);
+    if(p.t==='c'){cx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2)}
+    else{cx.shadowColor=p.c;cx.shadowBlur=10;cx.font=(p.t==='t'?p.r*3:p.r*1.8)+'px serif';cx.textAlign='center';cx.textBaseline='middle';
+      cx.fillStyle=p.t==='h'?'#ff5fa2':p.c;cx.fillText(p.t==='h'?'♥':'✦',0,0)}
+    cx.restore();
+  }
+  requestAnimationFrame(loop);
+}
+loop();
 
-                <!-- Sound and Action Controls -->
-                <div class="flex items-center space-x-3">
-                    <button onclick="toggleAudio()" id="audioToggleBtn" title="Ovozni yoqish/o'chirish" class="p-2.5 rounded-xl glass hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                        <i id="audioIcon" class="fa-solid fa-volume-xmark text-lg"></i>
-                    </button>
-                    <button onclick="triggerConfetti()" class="hidden sm:inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-brand-600/20 border border-brand-500/30 text-brand-300 hover:bg-brand-600/30 transition-all text-sm font-medium">
-                        <i class="fa-solid fa-sparkles text-amber-400"></i>
-                        <span>Otashbozi</span>
-                    </button>
-                </div>
-            </div>
-        </header>
+/* ---------- Kirish: katta sovg‘a ---------- */
+const $=id=>document.getElementById(id);
+const big=$('bigGift');let introDone=false;
+function center(el){const r=el.getBoundingClientRect();return[r.left+r.width/2,r.top+r.height/3]}
+// quti atrofidan doimiy yaltirash
+setInterval(()=>{if(introDone)return;const[x,y]=center(big);for(let i=0;i<2;i++){const a=rnd(0,6.28),d=rnd(60,130);
+  P.push({x:x+Math.cos(a)*d,y:y+Math.sin(a)*d+30,vx:Math.cos(a)*.3,vy:-rnd(.3,1),t:Math.random()<.5?'s':'t',c:'#ffd86b',r:rnd(3,7),rot:0,vr:.05,life:70,max:70,g:0,ph:rnd(0,6)})}},120);
+big.onclick=()=>{
+  if(introDone)return;introDone=true;big.classList.add('opening');$('hint').style.display='none';
+  const[x,y]=center(big);burst(x,y,130);setTimeout(()=>burst(x,y,80),400);
+  setTimeout(()=>{big.classList.add('opened');$('greet').classList.add('in');$('next').classList.add('in');startMusic(true)},500);
+};
+$('next').onclick=()=>{
+  $('intro').classList.add('hide');$('main').classList.add('show');$('main').scrollTop=0;
+  burst(W/2,H/3,160);setTimeout(()=>burst(W*.2,H/2,70),300);setTimeout(()=>burst(W*.8,H/2,70),500);
+  makeBalloons();
+};
 
-        <!-- Hero Section -->
-        <main class="flex-grow">
-            <section class="relative pt-16 pb-24 overflow-hidden">
-                <!-- Background decorative glowing orbs -->
-                <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-600/15 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="absolute top-1/3 right-10 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+/* ---------- Havo sharlari ---------- */
+let ballDone=false;
+function makeBalloons(){
+  if(ballDone)return;ballDone=true;
+  for(let i=0;i<9;i++){const b=document.createElement('div');b.className='balloon';const c=COL[i%6];
+    b.style.cssText=`left:${5+i*11}%;background:radial-gradient(circle at 30% 30%,#fff8,${c});animation-duration:${rnd(11,20)}s;animation-delay:${rnd(0,10)}s;box-shadow:0 0 18px ${c}88`;
+    $('main').appendChild(b)}
+}
 
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    
-                    <div class="inline-flex items-center space-x-2 px-5 py-2 rounded-full glass border border-amber-500/30 mb-8 animate-bounce">
-                        <i class="fa-solid fa-graduation-cap text-amber-400 text-sm"></i>
-                        <span class="text-xs font-semibold text-slate-200 tracking-wider uppercase">Fidoyi ustozlarimizga ehtirom</span>
-                    </div>
+/* ---------- Tort ---------- */
+$('cake').onclick=e=>{
+  const c=$('cake');c.classList.toggle('out');const r=c.getBoundingClientRect();
+  burst(r.left+r.width/2,r.top+20,c.classList.contains('out')?110:40);
+};
 
-                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight max-w-4xl mx-auto">
-                        1-Oktyabr — <span class="bg-gradient-to-r from-amber-400 via-amber-200 to-brand-500 bg-clip-text text-transparent">O'qituvchi va murabbiylar</span> kuni!
-                    </h1>
+/* ---------- 3 ta sovg‘a qutisi ---------- */
+const POOL=[
+ "Dada, tug‘ilgan kuningiz bilan!","Yoshingiz 100 ga yetsin!","Hech qachon qarimang!",
+ "Sog‘-salomat yuring, dadajon!","Doim kulib yuring! 😊","Siz bizning faxrimizsiz! 🏆","Sizni juda yaxshi ko‘ramiz! ❤️"
+];
+let msgs=[POOL[0],POOL[1],POOL[2]];
+const row=$('row'),rev=$('reveal');
+const boxes=[1,2,3].map((n,i)=>{
+  const s=document.createElement('div');s.className='slot';
+  s.innerHTML=`<div class="gift g${n}" style="--d:${i*.25}s"><div class="base"><span class="rib"></span></div><div class="inner"></div><div class="lid"><span class="rib"></span><span class="bow"><i></i><i></i><b></b></span></div></div>`;
+  row.appendChild(s);const g=s.firstChild;g.onclick=()=>openBox(i,g);return g});
+let closeT;
+function shuffle(){ // 3 ta tasodifiy yozuv
+  msgs=[...POOL].sort(()=>Math.random()-.5).slice(0,3);
+}
+function openBox(i,g){
+  clearTimeout(closeT);
+  boxes.forEach(b=>b.classList.remove('opened'));
+  g.classList.remove('opened');void g.offsetWidth;   // animatsiyani qayta ishga tushirish
+  g.classList.add('opened');
+  const r=g.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/3,90);
+  setTimeout(()=>burst(r.left+r.width/2,r.top,40),250);
+  rev.classList.remove('pop');void rev.offsetWidth;
+  rev.style.transformOrigin=(r.left+r.width/2-rev.getBoundingClientRect().left)+'px 0';
+  rev.innerHTML=`<div><small>Sovg‘a 🎁</small>${msgs[i]}</div>`;
+  rev.classList.add('pop');
+  shuffle(); // keyingi bosishda boshqa tabrik chiqadi
+  closeT=setTimeout(()=>g.classList.remove('opened'),4500);
+}
 
-                    <p class="mt-6 text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
-                        Kelajak bunyodkorlari, bilim ma'rifat ulashuvchi aziz va mo'tabar ustozlarimizga cheksiz minnatdorchilik bildiramiz.
-                    </p>
-
-                    <!-- Expressive Hero Banner Image / Glass Card -->
-                    <div class="mt-12 max-w-4xl mx-auto glass p-8 sm:p-12 rounded-3xl border border-slate-700/50 shadow-2xl glow-effect text-left relative overflow-hidden">
-                        <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
-                            <i class="fa-solid fa-award text-[220px] text-amber-400"></i>
-                        </div>
-                        <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-                            <div class="md:col-span-2 space-y-4">
-                                <span class="px-3 py-1 bg-amber-500/20 text-amber-300 rounded-md text-xs font-bold uppercase tracking-widest border border-amber-500/30">
-                                    Sharafli Kasb
-                                </span>
-                                <h3 class="text-2xl sm:text-3xl font-bold font-serif text-white">"Ustoz — ikkinchi validangizdir"</h3>
-                                <p class="text-slate-300 text-sm leading-relaxed font-light">
-                                    Har bir muvaffaqiyatimiz va erishgan marralarimiz ortida ustozlarimizning tunlarni kunlarga ulagan fidokorona mehnati yotadi.
-                                </p>
-                            </div>
-                            <div class="flex justify-center md:justify-end">
-                                <button onclick="triggerConfetti()" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold hover:scale-105 transition duration-300 shadow-xl flex items-center gap-2">
-                                    <i class="fa-solid fa-gift"></i>
-                                    <span>Guldasta Hadiya Qilish</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Interactive Wish Wall Section -->
-            <section class="py-16 bg-slate-900/50 border-y border-slate-800/80">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center max-w-2xl mx-auto mb-12">
-                        <h2 class="text-3xl font-bold text-white tracking-tight">
-                            <i class="fa-solid fa-heart text-red-500 mr-2"></i> Minnatdorchilik Devori
-                        </h2>
-                        <p class="text-slate-400 text-sm mt-2">
-                            O'z ustozingiz uchun samimiy tilak yoki tabrikingizni qoldiring!
-                        </p>
-                    </div>
-
-                    <!-- Input Form for Wish -->
-                    <div class="max-w-xl mx-auto glass p-6 rounded-2xl border border-slate-700/60 shadow-xl mb-12">
-                        <form id="wishForm" onsubmit="addWish(event)" class="space-y-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Ismingiz yoki Taxallusingiz</label>
-                                <input type="text" id="authorInput" required placeholder="Masalan: Sardor (Sobiq o'quvchi)" 
-                                    class="w-full px-4 py-2.5 rounded-xl bg-slate-950/70 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500 transition">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Tabrik / Tilagingiz</label>
-                                <textarea id="messageInput" required rows="3" placeholder="Aziz ustozim, menga bergan ilmingiz uchun..." 
-                                    class="w-full px-4 py-2.5 rounded-xl bg-slate-950/70 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500 transition"></textarea>
-                            </div>
-                            <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl shadow-lg transition duration-200 flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-paper-plane"></i>
-                                <span>Tabriknomani joylash</span>
-                            </button>
-                        </form>
-                    </div>
-
-                    <!-- Wishes Grid Display -->
-                    <div id="wishesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Dynamic wishes injected here via JS -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- Inspirational Quotes Section -->
-            <section class="py-16">
-                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-10">
-                        <h2 class="text-3xl font-bold text-white">
-                            <i class="fa-solid fa-book-open-reader text-amber-400 mr-2"></i> Ustozlar Haqida Hikmatlar
-                        </h2>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="glass p-6 rounded-2xl border border-slate-800 relative hover:border-brand-500/40 transition">
-                            <i class="fa-solid fa-quote-left text-3xl text-brand-500/30 absolute top-4 left-4"></i>
-                            <p class="text-slate-200 font-serif italic text-lg leading-relaxed relative z-10 pt-4">
-                                "O'qituvchi va murabbiylar — jamiyatning eng oliy va mas'uliyatli ustuni, kelajagimiz poydevoridir."
-                            </p>
-                            <div class="mt-4 text-right">
-                                <span class="text-xs font-semibold text-amber-400 uppercase tracking-wider">— Alisher Navoiy o'gitlaridan</span>
-                            </div>
-                        </div>
-
-                        <div class="glass p-6 rounded-2xl border border-slate-800 relative hover:border-brand-500/40 transition">
-                            <i class="fa-solid fa-quote-left text-3xl text-amber-500/30 absolute top-4 left-4"></i>
-                            <p class="text-slate-200 font-serif italic text-lg leading-relaxed relative z-10 pt-4">
-                                "Haq yo‘lida kim sana bir harf o‘qitmish ranj ila, Aylasa bo‘lmas adosin yuz ganj ila."
-                            </p>
-                            <div class="mt-4 text-right">
-                                <span class="text-xs font-semibold text-amber-400 uppercase tracking-wider">— Mir Alisher Navoiy</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Footer -->
-        <footer class="glass border-t border-slate-800/80 py-8 text-center text-slate-400 text-sm">
-            <div class="max-w-7xl mx-auto px-4">
-                <p>© 2026 Bayramona Sayt | Barcha ustoz va murabbiylarga minnatdorchilik bilan.</p>
-                <p class="text-xs text-slate-500 mt-1">1-Oktyabr - Ustozlar kuni munosabati bilan maxsus tayyorlandi.</p>
-            </div>
-        </footer>
-    </div>
-
-    <script>
-        // --- State Management ---
-        let giftOpened = false;
-        let audioContext = null;
-        let audioEnabled = false;
-
-        // --- Sparkles Particle System on Canvas ---
-        const canvas = document.getElementById('sparkleCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = (Math.random() - 0.5) * 1.5;
-                this.speedY = (Math.random() - 0.5) * 1.5;
-                this.alpha = Math.random();
-                this.fadeSpeed = Math.random() * 0.02 + 0.005;
-                this.color = Math.random() > 0.5 ? '#fbbf24' : '#818cf8';
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.alpha -= this.fadeSpeed;
-
-                if (this.alpha <= 0 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-                    this.reset();
-                }
-            }
-
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = Math.max(0, this.alpha);
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        // Initialize particles
-        for (let i = 0; i < 60; i++) {
-            particles.push(new Particle());
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
-
-        // --- Web Audio Synth Sound FX ---
-        function playChimeSound() {
-            try {
-                if (!audioContext) {
-                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                }
-                if (audioContext.state === 'suspended') {
-                    audioContext.resume();
-                }
-
-                const now = audioContext.currentTime;
-                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 notes
-                
-                notes.forEach((freq, idx) => {
-                    const osc = audioContext.createOscillator();
-                    const gain = audioContext.createGain();
-                    
-                    osc.type = 'sine';
-                    osc.frequency.value = freq;
-                    
-                    gain.gain.setValueAtTime(0, now + idx * 0.1);
-                    gain.gain.linearRampToValueAtTime(0.2, now + idx * 0.1 + 0.05);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.8);
-                    
-                    osc.connect(gain);
-                    gain.connect(audioContext.destination);
-                    
-                    osc.start(now + idx * 0.1);
-                    osc.stop(now + idx * 0.1 + 0.9);
-                });
-            } catch(e) {
-                console.log('Audio playback standard bypass', e);
-            }
-        }
-
-        function toggleAudio() {
-            audioEnabled = !audioEnabled;
-            const icon = document.getElementById('audioIcon');
-            if (audioEnabled) {
-                icon.className = 'fa-solid fa-volume-high text-amber-400';
-                playChimeSound();
-            } else {
-                icon.className = 'fa-solid fa-volume-xmark text-slate-300';
-            }
-        }
-
-        // --- Gift Box Interaction ---
-        function openGift() {
-            if (giftOpened) return;
-            giftOpened = true;
-
-            const giftBox = document.getElementById('giftBox');
-            const letterCard = document.getElementById('letterCard');
-            const nextBtnContainer = document.getElementById('nextBtnContainer');
-
-            // Sound
-            playChimeSound();
-
-            // Trigger Confetti
-            confetti({
-                particleCount: 120,
-                spread: 80,
-                origin: { y: 0.6 }
-            });
-
-            // Animate gift lid
-            giftBox.classList.add('opened');
-
-            // Show Letter Card smoothly
-            setTimeout(() => {
-                letterCard.classList.add('visible');
-                
-                // Show "Keyingi" button after letter appears
-                setTimeout(() => {
-                    nextBtnContainer.classList.remove('opacity-0', 'translate-y-4');
-                }, 600);
-            }, 500);
-        }
-
-        // --- Navigation from Intro to Main Page ---
-        function goToMainPage() {
-            const introScreen = document.getElementById('intro-screen');
-            const mainContent = document.getElementById('main-content');
-
-            // Play Sound & Confetti
-            playChimeSound();
-            triggerConfetti();
-
-            // Fade out intro, fade in main content
-            introScreen.style.opacity = '0';
-            setTimeout(() => {
-                introScreen.style.display = 'none';
-                mainContent.classList.remove('opacity-0');
-                mainContent.classList.add('opacity-100');
-                window.scrollTo(0, 0);
-            }, 1000);
-        }
-
-        function triggerConfetti() {
-            confetti({
-                particleCount: 100,
-                spread: 100,
-                origin: { y: 0.5 }
-            });
-        }
-
-        // --- Minnatdorchilik Devori (Wishes System) ---
-        const initialWishes = [
-            {
-                author: "Anvarjon (Toshkent)",
-                text: "Barcha mehribon ustozlarimizga sihat-salomatlik va zafarlar tilayman! Ilmingiz ziyoda bo'lsin."
-            },
-            {
-                author: "Malika R.",
-                text: "Siz bergan saboqlar va to'g'ri yo'l-yo'riqlar sabab bugun o'z o'rnimni topdim. Rahmat sizga!"
-            },
-            {
-                author: "10-'A' Sinf bitiruvchilari",
-                text: "1-Oktyabr bayramingiz muborak bo'lsin aziz ustozlarim! Har doim yuzingizdan tabassum arolmasin."
-            }
-        ];
-
-        function renderWishes() {
-            const grid = document.getElementById('wishesGrid');
-            const wishes = JSON.parse(localStorage.getItem('ustoz_wishes')) || initialWishes;
-
-            grid.innerHTML = wishes.map((wish) => `
-                <div class="glass p-5 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-amber-500/30 transition shadow-lg">
-                    <p class="text-slate-200 text-sm sm:text-base italic font-serif leading-relaxed">"${wish.text}"</p>
-                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-                        <span class="font-semibold text-amber-400"><i class="fa-solid fa-user-pen mr-1.5"></i>${wish.author}</span>
-                        <span class="text-slate-500"><i class="fa-solid fa-heart text-red-500/80 mr-1"></i>Ehtirom bilan</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function addWish(event) {
-            event.preventDefault();
-            const authorInput = document.getElementById('authorInput');
-            const messageInput = document.getElementById('messageInput');
-
-            const newWish = {
-                author: authorInput.value.trim(),
-                text: messageInput.value.trim()
-            };
-
-            const wishes = JSON.parse(localStorage.getItem('ustoz_wishes')) || initialWishes;
-            wishes.unshift(newWish);
-            localStorage.setItem('ustoz_wishes', JSON.stringify(wishes));
-
-            renderWishes();
-            authorInput.value = '';
-            messageInput.value = '';
-
-            triggerConfetti();
-        }
-
-        // Initialize state on load
-        window.onload = function() {
-            renderWishes();
-        }
-    </script>
+/* ---------- Musiqa (Web Audio, tashqi fayl kerak emas) ---------- */
+let ac,playing=false,step=0,timer;
+const NOTES=[261.6,329.6,392,523.3,392,329.6,293.7,349.2,440,587.3,440,349.2,246.9,293.7,392,493.9,392,293.7,261.6,329.6,392,659.3,523.3,392];
+function tone(f,t,d,v){const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.05);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+  o.connect(g).connect(ac.destination);o.start(t);o.stop(t+d)}
+function tick(){const t=ac.currentTime+.05,f=NOTES[step%NOTES.length];tone(f,t,1.2,.09);tone(f/2,t,1.6,.05);
+  if(step%4===0)tone(f*1.5,t+.1,1,.03);step++}
+function startMusic(auto){
+  if(playing)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();ac.resume();}catch(e){return}
+  playing=true;timer=setInterval(tick,520);$('music').classList.add('on');$('music').textContent='⏸';
+}
+function stopMusic(){playing=false;clearInterval(timer);$('music').classList.remove('on');$('music').textContent='🎵'}
+$('music').onclick=()=>playing?stopMusic():startMusic();
+</script>
 </body>
 </html>
